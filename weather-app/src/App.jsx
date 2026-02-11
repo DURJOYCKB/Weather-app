@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { Sun, Moon, Download } from "lucide-react";
 import "./App.css";
 
@@ -110,6 +110,60 @@ export default function App() {
     fetchAll(city);
   }, []);
 
+  // Suggestions Logic
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const searchRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (input.length < 2) {
+        setSuggestions([]);
+        return;
+      }
+
+      try {
+        const res = await fetch(
+          `https://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=5&appid=${API_KEY}`
+        );
+        if (res.ok) {
+          const data = await res.json();
+          setSuggestions(data);
+          setShowSuggestions(true);
+        }
+      } catch (error) {
+        console.error("Error fetching suggestions:", error);
+      }
+    };
+
+    const timer = setTimeout(() => {
+      fetchSuggestions();
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [input]);
+
+  const handleSuggestionClick = (suggestion) => {
+    const cityName = `${suggestion.name}, ${suggestion.country}`;
+    setCity(cityName); // Or just suggestion.name if the API handles it better, but "London, GB" is safer
+    fetchAll(suggestion.name); // Using just name for weather fetch often works, but let's try just name or name,country code
+    // Actually weather endpoint takes "q={city name},{state code},{country code}"
+    // So "London,GB" is good.
+    setInput(""); // Clear input
+    setSuggestions([]);
+    setShowSuggestions(false);
+  };
+
   const handleSearch = () => {
     if (input.trim()) {
       setCity(input);
@@ -197,10 +251,14 @@ export default function App() {
           </div>
 
           <SearchBar
+            searchRef={searchRef}
             input={input}
             setInput={setInput}
             handleSearch={handleSearch}
             handleKeyDown={handleKeyDown}
+            suggestions={suggestions}
+            showSuggestions={showSuggestions}
+            onSelectSuggestion={handleSuggestionClick}
           />
 
           <div className="actions">
