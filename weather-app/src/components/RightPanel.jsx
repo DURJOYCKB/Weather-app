@@ -2,15 +2,6 @@ import React from "react";
 import { Search, Info } from "lucide-react";
 
 export default function RightPanel({ recentSearches, onSearchSelect }) {
-    // If no recent searches, we can show a message or nothing.
-    // Ideally we might want to keep the mocks for initial demo if list is empty, 
-    // BUT the user asked for "dynamic not fixed". So let's show the dynamic list.
-    // If empty, show nothing or a "No recent searches" message.
-
-    // However, to keep the UI looking good on first load if empty, maybe we keep the mock?
-    // User instruction: "make the recent search section dynamic not fixed".
-    // I will prioritize the dynamic list. If it's empty, it will be empty.
-
     const list = recentSearches;
 
     return (

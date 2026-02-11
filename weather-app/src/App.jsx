@@ -18,29 +18,16 @@ export default function App() {
   const [forecast, setForecast] = useState([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
-
-  // 🌙 Dark Mode
-  const [darkMode ] = useState(() => {
-    const saved = localStorage.getItem("darkMode");
-    return saved ? JSON.parse(saved) : true;
-  });
-
-  // Recent Searches
   const [recentSearches, setRecentSearches] = useState(() => {
     const saved = localStorage.getItem("recentSearches");
     return saved ? JSON.parse(saved) : [];
   });
 
+  // Force Dark Theme
   useEffect(() => {
-    localStorage.setItem("darkMode", JSON.stringify(darkMode));
-    if (darkMode) {
-      document.body.classList.add("dark-theme");
-      document.body.classList.remove("light-theme");
-    } else {
-      document.body.classList.add("light-theme");
-      document.body.classList.remove("dark-theme");
-    }
-  }, [darkMode]);
+    document.body.classList.add("dark-theme");
+    document.body.classList.remove("light-theme");
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("recentSearches", JSON.stringify(recentSearches));

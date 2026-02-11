@@ -1138,16 +1138,16 @@
   top: 0;
   left: 15%;
   animation-delay: 0s;
-  animation-duration: 15s;
+  animation-duration: 35s;
   /* Very long cycle */
 }
 
 .shooting-stars span:nth-child(2) {
   top: 10%;
   left: 55%;
-  animation-delay: 7s;
+  animation-delay: 15s;
   /* Offset */
-  animation-duration: 23s;
+  animation-duration: 45s;
   /* Different cycle to avoid syncing */
 }
 
@@ -1245,8 +1245,8 @@ h3,
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999;
-  /* Above everything */
+  z-index: 0;
+  /* Behind UI */
   pointer-events: none;
   overflow: hidden;
 }
