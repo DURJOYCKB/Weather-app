@@ -1,0 +1,56 @@
+:root {
+  --font-main: "Outfit", sans-serif;
+  
+  /* Light Theme Colors */
+  --bg-light: #f3f4f6;
+  --text-light: #1f2937; 
+  --glass-light: rgba(255, 255, 255, 0.65);
+  --glass-border-light: rgba(255, 255, 255, 0.4);
+  --glass-shadow-light: 0 8px 32px rgba(0, 0, 0, 0.05);
+
+  /* Dark Theme Colors */
+  --bg-dark: #111827;
+  --text-dark: #f9fafb;
+  --glass-dark: rgba(17, 25, 40, 0.75);
+  --glass-border-dark: rgba(255, 255, 255, 0.1);
+  --glass-shadow-dark: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+  /* Common */
+  --primary: #3b82f6;
+  --accent: #8b5cf6;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+  
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Theme Application */
+body.light-theme {
+  background: var(--bg-light);
+  color: var(--text-light);
+  --glass-bg: var(--glass-light);
+  --glass-border: var(--glass-border-light);
+  --glass-shadow: var(--glass-shadow-light);
+}
+
+body.dark-theme {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+  --glass-bg: var(--glass-dark);
+  --glass-border: var(--glass-border-dark);
+  --glass-shadow: var(--glass-shadow-dark);
+}
