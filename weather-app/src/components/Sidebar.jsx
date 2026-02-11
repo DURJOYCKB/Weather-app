@@ -52,15 +52,7 @@ export default function Sidebar({ weather }) {
         </div>
       </div>
 
-      <div className="sideTitle mt-large">Location</div>
-      <div className="miniMap">
-        <div className="mapVisual">
-           <MapPin size={32} className="mapPinIcon" />
-        </div>
-        <p className="miniCity">
-          {weather ? `${weather.name}, ${weather.sys.country}` : "Select a city"}
-        </p>
-      </div>
+      
     </aside>
   );
 }
