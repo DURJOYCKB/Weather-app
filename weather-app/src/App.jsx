@@ -20,7 +20,7 @@ export default function App() {
   const [err, setErr] = useState("");
 
   // 🌙 Dark Mode
-  const [darkMode, setDarkMode] = useState(() => {
+  const [darkMode ] = useState(() => {
     const saved = localStorage.getItem("darkMode");
     return saved ? JSON.parse(saved) : true;
   });
@@ -195,8 +195,7 @@ export default function App() {
       {bgClass === "bg-night" && (
         <>
           <div className="shooting-stars">
-            <span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span>
           </div>
           <Stars />
         </>
@@ -218,13 +217,7 @@ export default function App() {
           />
 
           <div className="actions">
-            <button
-              className="themeBtn"
-              onClick={() => setDarkMode(!darkMode)}
-              title="Toggle Theme"
-            >
-              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+            {/* Dark mode toggle removed as per request */}
           </div>
         </header>
 

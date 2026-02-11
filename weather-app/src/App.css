@@ -1105,7 +1105,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: 9998;
   overflow: hidden;
   pointer-events: none;
 }
@@ -1133,60 +1133,22 @@
 }
 
 /* Randomize positions */
+/* Randomize positions */
 .shooting-stars span:nth-child(1) {
   top: 0;
   left: 15%;
-  animation-delay: 0;
-  animation-duration: 3s;
+  animation-delay: 0s;
+  animation-duration: 15s;
+  /* Very long cycle */
 }
 
 .shooting-stars span:nth-child(2) {
   top: 10%;
   left: 55%;
-  animation-delay: 2s;
-  animation-duration: 4s;
-}
-
-.shooting-stars span:nth-child(3) {
-  top: 20%;
-  left: 80%;
-  animation-delay: 4s;
-  animation-duration: 2s;
-}
-
-.shooting-stars span:nth-child(4) {
-  top: 0;
-  left: 90%;
-  animation-delay: 1.5s;
-  animation-duration: 3.5s;
-}
-
-.shooting-stars span:nth-child(5) {
-  top: 5%;
-  left: 40%;
-  animation-delay: 2.5s;
-  animation-duration: 2.5s;
-}
-
-.shooting-stars span:nth-child(6) {
-  top: 50%;
-  left: 0%;
-  animation-delay: 5s;
-  animation-duration: 5s;
-}
-
-.shooting-stars span:nth-child(7) {
-  top: 25%;
-  left: 5%;
-  animation-delay: 1s;
-  animation-duration: 6s;
-}
-
-.shooting-stars span:nth-child(8) {
-  top: 0;
-  left: 70%;
-  animation-delay: 3s;
-  animation-duration: 4s;
+  animation-delay: 7s;
+  /* Offset */
+  animation-duration: 23s;
+  /* Different cycle to avoid syncing */
 }
 
 @keyframes animate-shooting {
@@ -1195,13 +1157,19 @@
     opacity: 1;
   }
 
-  70% {
+  5% {
     opacity: 1;
+  }
+
+  10% {
+    transform: rotate(315deg) translateX(-1000px);
+    opacity: 0;
   }
 
   100% {
     transform: rotate(315deg) translateX(-1000px);
     opacity: 0;
+    /* Stay hidden for the rest of the duration */
   }
 }
 
@@ -1277,8 +1245,8 @@ h3,
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
-  /* Behind content but above background */
+  z-index: 9999;
+  /* Above everything */
   pointer-events: none;
   overflow: hidden;
 }
