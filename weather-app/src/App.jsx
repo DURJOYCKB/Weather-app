@@ -57,9 +57,11 @@ export default function App() {
       if (!res1.ok) throw new Error("City not found!");
       const data1 = await res1.json();
 
-      // forecast (5 days, 3-hour interval)
+      const { lat, lon } = data1.coord;
+
+      // forecast (7 days from Open-Meteo)
       const res2 = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${API_KEY}&units=metric`
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto`
       );
       if (!res2.ok) throw new Error("Forecast not available!");
       const data2 = await res2.json();
@@ -69,32 +71,28 @@ export default function App() {
       // Add to recent
       addRecentSearch(data1.name + ", " + data1.sys.country, Math.round(data1.main.temp) + "°", data1.weather[0].main);
 
-      // Map 5-day forecast: Group by date, get 12:00 PM for Day and 09:00 PM for Night
-      const dailyMap = new Map();
+      // Map Open-Meteo 7-day forecast to existing structure
+      const mapCondition = (code) => {
+        if (code === 0) return "Clear";
+        if (code >= 1 && code <= 3) return "Clouds";
+        if (code >= 45 && code <= 48) return "Fog";
+        if (code >= 51 && code <= 67) return "Rain";
+        if (code >= 71 && code <= 77) return "Snow";
+        if (code >= 80 && code <= 82) return "Rain";
+        if (code >= 95 && code <= 99) return "Thunderstorm";
+        return "Clouds";
+      };
 
-      data2.list.forEach((item) => {
-        const date = item.dt_txt.split(" ")[0];
-        const time = item.dt_txt.split(" ")[1];
-
-        if (!dailyMap.has(date)) {
-          dailyMap.set(date, { day: null, night: null, dt_txt: item.dt_txt }); // Initialize
+      const daily = data2.daily.time.map((date, i) => ({
+        day: {
+          main: { temp: data2.daily.temperature_2m_max[i] },
+          weather: [{ main: mapCondition(data2.daily.weathercode[i]) }],
+          dt_txt: date
+        },
+        night: {
+          main: { temp: data2.daily.temperature_2m_min[i] }
         }
-
-        const entry = dailyMap.get(date);
-
-        // Prefer 12:00 for day, 21:00 for night
-        if (time === "12:00:00") entry.day = item;
-        if (time === "21:00:00") entry.night = item;
-
-        // Fallbacks if exact times missing (first item as day, last as night essentially)
-        if (!entry.day && time >= "09:00:00" && time <= "15:00:00") entry.day = item;
-        if (!entry.night && time >= "18:00:00") entry.night = item;
-      });
-
-      // Convert map to array and take 7 days
-      const daily = Array.from(dailyMap.values())
-        .filter(item => item.day) // Ensure we have at least a day forecast
-        .slice(0, 7);
+      }));
 
       setForecast(daily);
     } catch (e) {
@@ -236,7 +234,7 @@ export default function App() {
       {bgClass === "bg-night" && (
         <>
           <div className="shooting-stars">
-            <span></span><span></span>
+            <span></span><span></span><span></span>
           </div>
           <Stars />
         </>

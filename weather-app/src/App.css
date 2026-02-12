@@ -1137,30 +1137,34 @@
   top: 0;
   left: 15%;
   animation-delay: 0s;
-  animation-duration: 35s;
-  /* Very long cycle */
+  animation-duration: 8s;
 }
 
 .shooting-stars span:nth-child(2) {
   top: 10%;
   left: 55%;
-  animation-delay: 15s;
-  /* Offset */
-  animation-duration: 45s;
-  /* Different cycle to avoid syncing */
+  animation-delay: 4s;
+  animation-duration: 12s;
+}
+
+.shooting-stars span:nth-child(3) {
+  top: 20%;
+  left: 85%;
+  animation-delay: 8s;
+  animation-duration: 10s;
 }
 
 @keyframes animate-shooting {
   0% {
     transform: rotate(315deg) translateX(0);
-    opacity: 1;
+    opacity: 0;
   }
 
   5% {
     opacity: 1;
   }
 
-  10% {
+  20% {
     transform: rotate(315deg) translateX(-1000px);
     opacity: 0;
   }
@@ -1168,7 +1172,6 @@
   100% {
     transform: rotate(315deg) translateX(-1000px);
     opacity: 0;
-    /* Stay hidden for the rest of the duration */
   }
 }
 
@@ -1244,8 +1247,8 @@ h3,
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
-  /* Behind UI */
+  z-index: 5;
+  /* Above cards, but below interactive icons if needed */
   pointer-events: none;
   overflow: hidden;
 }
