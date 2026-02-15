@@ -23,7 +23,7 @@ export default function App() {
     return saved ? JSON.parse(saved) : [];
   });
 
-  // Force Dark Theme
+ 
   useEffect(() => {
     document.body.classList.add("dark-theme");
     document.body.classList.remove("light-theme");
@@ -33,16 +33,15 @@ export default function App() {
     localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
   }, [recentSearches]);
 
-  // ============ HELPERS ============
   const addRecentSearch = (city, temp, type) => {
     setRecentSearches(prev => {
       const filtered = prev.filter(item => item.city.toLowerCase() !== city.toLowerCase());
       const newItem = { city, temp, type };
-      return [newItem, ...filtered].slice(0, 5); // Keep top 5
+      return [newItem, ...filtered].slice(0, 5); 
     });
   };
 
-  // ============ FETCH ============
+ 
   const fetchAll = async (cityName) => {
     if (!cityName.trim()) return;
 
@@ -50,7 +49,7 @@ export default function App() {
       setLoading(true);
       setErr("");
 
-      // current
+     
       const res1 = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`
       );
@@ -59,7 +58,7 @@ export default function App() {
 
       const { lat, lon } = data1.coord;
 
-      // forecast (7 days from Open-Meteo)
+      
       const res2 = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto`
       );
@@ -68,10 +67,10 @@ export default function App() {
 
       setCurrent(data1);
 
-      // Add to recent
+      
       addRecentSearch(data1.name + ", " + data1.sys.country, Math.round(data1.main.temp) + "°", data1.weather[0].main);
 
-      // Map Open-Meteo 7-day forecast to existing structure
+      
       const mapCondition = (code) => {
         if (code === 0) return "Clear";
         if (code >= 1 && code <= 3) return "Clouds";
@@ -108,7 +107,7 @@ export default function App() {
     fetchAll(city);
   }, []);
 
-  // Suggestions Logic
+ 
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchRef = useRef(null);
@@ -153,11 +152,10 @@ export default function App() {
 
   const handleSuggestionClick = (suggestion) => {
     const cityName = `${suggestion.name}, ${suggestion.country}`;
-    setCity(cityName); // Or just suggestion.name if the API handles it better, but "London, GB" is safer
-    fetchAll(suggestion.name); // Using just name for weather fetch often works, but let's try just name or name,country code
-    // Actually weather endpoint takes "q={city name},{state code},{country code}"
-    // So "London,GB" is good.
-    setInput(""); // Clear input
+    setCity(cityName); 
+    fetchAll(suggestion.name);  
+    
+    setInput(""); 
     setSuggestions([]);
     setShowSuggestions(false);
   };
@@ -174,7 +172,6 @@ export default function App() {
     if (e.key === "Enter") handleSearch();
   };
 
-  // ============ HELPERS ============
   const weatherMain = current?.weather?.[0]?.main || "";
 
   const isNight = useMemo(() => {
@@ -260,11 +257,11 @@ export default function App() {
           />
 
           <div className="actions">
-            {/* Dark mode toggle removed as per request */}
+           
           </div>
         </header>
 
-        {/* Main Grid */}
+    
         <div className="mainGrid">
           <Sidebar weather={current} />
 

@@ -1,6 +1,4 @@
-/* =========================
-   APP LAYOUT & BG
-========================= */
+
 .app {
   min-height: 100vh;
   padding: 20px;
@@ -11,7 +9,7 @@
   align-items: center;
 }
 
-/* Dynamic Backgrounds via Pseudo-element */
+
 .app::before {
   content: "";
   position: absolute;
@@ -56,7 +54,7 @@
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.2);
-  /* Slight darken for readability */
+  
   z-index: -1;
 }
 
@@ -64,15 +62,13 @@
   width: 100%;
   max-width: 1400px;
   height: 90vh;
-  /* Fixed height for dashboard feel on desktop */
+  
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* =========================
-   GLASS UTILITY
-========================= */
+
 .glass {
   background: var(--glass-bg);
   backdrop-filter: blur(16px);
@@ -82,9 +78,6 @@
   border-radius: var(--radius-lg);
 }
 
-/* =========================
-   TOPBAR
-========================= */
 .topbar {
   display: flex;
   align-items: center;
@@ -178,7 +171,7 @@
 
 .downloadBtn {
   background: var(--text-color);
-  /* Adaptive? No, lets stick to glass */
+  
 }
 
 .themeBtn:hover,
@@ -187,22 +180,17 @@
   transform: translateY(-2px);
 }
 
-/* =========================
-   MAIN GRID
-========================= */
+
 .mainGrid {
   display: grid;
   grid-template-columns: 280px 1fr 340px;
   gap: 20px;
   flex: 1;
-  /* Take remaining height */
+  
   overflow: hidden;
-  /* For inner scrolling if needed */
+  
 }
 
-/* =========================
-   SIDEBAR
-========================= */
 .sidebar {
   padding: 24px;
   display: flex;
@@ -222,7 +210,6 @@
 
 .mt-large {
   margin-top: auto;
-  /* Push map to bottom if space permits */
 }
 
 .statusGrid {
@@ -307,9 +294,6 @@
   backdrop-filter: blur(4px);
 }
 
-/* =========================
-   MAIN SECTION
-========================= */
 .main {
   padding: 30px;
   display: flex;
@@ -354,8 +338,7 @@
   background: linear-gradient(to bottom, #fff, rgba(255, 255, 255, 0.6));
   -webkit-background-clip: text;
   background-clip: text;
-  /* Ideally transparent text, but for simple contrast fallback keeps it white if bg is simple */
-  /* color: transparent; */
+  
 }
 
 .heroCondition {
@@ -436,9 +419,7 @@
   opacity: 0.6;
 }
 
-/* =========================
-   RIGHT PANEL
-========================= */
+
 .right {
   padding: 24px;
   display: flex;
@@ -494,7 +475,6 @@
   font-weight: 700;
 }
 
-/* Promo */
 .promoCard {
   margin-top: auto;
   background: linear-gradient(135deg, rgba(60, 110, 255, 0.8), rgba(120, 80, 255, 0.8));
@@ -539,9 +519,6 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
 @media (max-width: 1200px) {
   .mainGrid {
     grid-template-columns: 240px 1fr;
@@ -604,12 +581,10 @@
 
   .forecastGrid {
     grid-template-columns: 1fr;
-    /* Stack forecast days on really small screens? No, 1fr 1fr */
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Helper for loading/error */
 .loading,
 .error,
 .empty {
@@ -636,14 +611,10 @@
   }
 }
 
-/* =========================
-   3D WEATHER ICONS
-========================= */
 .weather-icon-3d {
   width: 150px;
   height: 150px;
   position: relative;
-  /* Ensure it sits "in front" if needed, but integration will handle layout */
   z-index: 10;
   display: flex;
   justify-content: center;
@@ -681,7 +652,7 @@
   height: 60px;
   background: #fff;
   border-radius: 50px;
-  /* Pillow shape base */
+
   position: relative;
   box-shadow:
     0 10px 20px rgba(0, 0, 0, 0.2),
@@ -725,9 +696,7 @@
 }
 
 /* --- RAIN 3D --- */
-/* Reuse cloud base for rain, add drops */
 .rain-3d {
-  /* Same base as cloud but darker */
   width: 120px;
   height: 60px;
   background: #dcdcdc;
@@ -815,7 +784,6 @@
   box-shadow:
     0 10px 20px rgba(0, 0, 0, 0.1),
     inset 0 -5px 15px rgba(230, 230, 250, 0.5);
-  /* Blueish tint */
   animation: cloud-float 3s infinite ease-in-out alternate;
 }
 
@@ -955,17 +923,17 @@
   }
 }
 
-/* Updated Layout for Centered Icon */
+
 .hero {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* Align vertically center */
+  
   margin-bottom: 40px;
 }
 
 .heroLeft {
-  /* Only contains temp now */
+ 
   text-align: left;
 }
 
@@ -989,15 +957,15 @@
   height: 100px;
   box-shadow:
     0 0 30px rgba(255, 255, 240, 0.3),
-    /* Outer Glow */
+  
     inset -15px -15px 30px rgba(0, 0, 0, 0.15);
-  /* Shadow for depth */
+  
   animation: moon-float 4s infinite ease-in-out alternate;
   position: relative;
   overflow: hidden;
 }
 
-/* Crater - Large */
+
 .moon-3d::after {
   content: '';
   position: absolute;
@@ -1010,7 +978,7 @@
   box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Crater - Medium */
+
 .moon-3d::before {
   content: '';
   position: absolute;
@@ -1023,14 +991,12 @@
   box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Extra Craters via box-shadow on pseudo-element */
+
 .moon-3d::after {
   box-shadow:
     inset 2px 2px 4px rgba(0, 0, 0, 0.1),
     40px 10px 0 -5px rgba(200, 200, 200, 0.2),
-    /* Crater 2 */
     10px 40px 0 -8px rgba(200, 200, 200, 0.2);
-  /* Crater 3 */
 }
 
 /* Star Decoration */
@@ -1070,13 +1036,10 @@
   }
 }
 
-/* =========================
-   NIGHT BACKGROUND & SHOOTING STARS
-========================= */
 .bg-night {
   background: linear-gradient(to bottom, #020111 10%, #191621 100%);
   color: #fff;
-  /* Force white text */
+  
 }
 
 .bg-night .glass,
@@ -1089,7 +1052,7 @@
 .bg-night .recentCard {
   color: #fff;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  /* Better contrast against stars */
+  
 }
 
 .bg-night::before {
@@ -1131,8 +1094,6 @@
   background: linear-gradient(90deg, #fff, transparent);
 }
 
-/* Randomize positions */
-/* Randomize positions */
 .shooting-stars span:nth-child(1) {
   top: 0;
   left: 15%;
@@ -1175,10 +1136,7 @@
   }
 }
 
-/* =========================
-   UI POLISH (Enhancements)
-========================= */
-/* Better Glass */
+
 .glass {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
@@ -1204,7 +1162,7 @@
 /* Typography Tweaks */
 body {
   font-family: 'Inter', sans-serif;
-  /* Ensuring a clean font if available, fallback exists */
+  
   letter-spacing: -0.01em;
 }
 
@@ -1224,7 +1182,7 @@ h3,
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* Scrollbar Polish */
+
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -1238,9 +1196,6 @@ h3,
   border-radius: 10px;
 }
 
-/* =========================
-   STARS COMPONENT
-========================= */
 .stars-container {
   position: absolute;
   top: 0;
@@ -1248,7 +1203,7 @@ h3,
   width: 100%;
   height: 100%;
   z-index: 5;
-  /* Above cards, but below interactive icons if needed */
+  
   pointer-events: none;
   overflow: hidden;
 }
@@ -1275,9 +1230,6 @@ h3,
 
 }
 
-/* =========================
-   SEARCH SUGGESTIONS
-========================= */
 .searchContainer {
   position: relative;
   flex: 1;

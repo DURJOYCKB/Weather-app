@@ -2,9 +2,7 @@ import React from "react";
 import { Wind, Droplets, Gauge, Eye, MapPin } from "lucide-react";
 
 export default function Sidebar({ weather }) {
-  // Helpers for sidebar status
-  // We can calculate "Air Quality" loosely or just mock it for now since API doesn't give it in standard call
-  // For the "Dangerous" button, we can just make it visual.
+ 
 
   return (
     <aside className="sidebar glass">

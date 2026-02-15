@@ -10,7 +10,7 @@ export default function MainWeather({ weather, forecast, loading, error, formatD
     const weatherMain = weather.weather[0].main;
     const description = weather.weather[0].description;
 
-    // Check if it is currently night
+    
     const now = weather.dt;
     const { sunrise, sunset } = weather.sys;
     const isNight = now < sunrise || now > sunset;
@@ -54,7 +54,7 @@ export default function MainWeather({ weather, forecast, loading, error, formatD
 
                 <div className="forecastGrid">
                     {forecast.map((item, i) => {
-                        const d = item.day || item.night; // fallback
+                        const d = item.day || item.night; 
                         if (!d) return null;
 
                         return (

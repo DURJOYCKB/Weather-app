@@ -27,12 +27,12 @@ const WeatherIcon3D = ({ condition, isNight }) => {
             iconClass = 'snow-3d';
             break;
         default:
-            iconClass = 'cloud-3d'; // Fallback
+            iconClass = 'cloud-3d'; 
     }
 
     return (
         <div className={`weather-icon-3d ${iconClass}`}>
-            {/* Internal elements for specific icons if needed, e.g. rain drops */}
+            
             {(iconClass === 'rain-3d' || iconClass === 'storm-3d') && (
                 <div className="rain-drops">
                     <span></span><span></span><span></span>
