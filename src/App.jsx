@@ -13,7 +13,7 @@ const API_KEY = "44bf8383c27e83ae73bf34477a3453be";
 
 export default function App() {
   const [input, setInput] = useState("");
-  const [city, setCity] = useState("Dhaka");
+  const [city, setCity] = useState("Chittagong");
   const [current, setCurrent] = useState(null);
   const [forecast, setForecast] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ export default function App() {
     return saved ? JSON.parse(saved) : [];
   });
 
- 
+
   useEffect(() => {
     document.body.classList.add("dark-theme");
     document.body.classList.remove("light-theme");
@@ -37,11 +37,11 @@ export default function App() {
     setRecentSearches(prev => {
       const filtered = prev.filter(item => item.city.toLowerCase() !== city.toLowerCase());
       const newItem = { city, temp, type };
-      return [newItem, ...filtered].slice(0, 5); 
+      return [newItem, ...filtered].slice(0, 5);
     });
   };
 
- 
+
   const fetchAll = async (cityName) => {
     if (!cityName.trim()) return;
 
@@ -49,7 +49,7 @@ export default function App() {
       setLoading(true);
       setErr("");
 
-     
+
       const res1 = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`
       );
@@ -58,7 +58,7 @@ export default function App() {
 
       const { lat, lon } = data1.coord;
 
-      
+
       const res2 = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto`
       );
@@ -67,10 +67,10 @@ export default function App() {
 
       setCurrent(data1);
 
-      
+
       addRecentSearch(data1.name + ", " + data1.sys.country, Math.round(data1.main.temp) + "°", data1.weather[0].main);
 
-      
+
       const mapCondition = (code) => {
         if (code === 0) return "Clear";
         if (code >= 1 && code <= 3) return "Clouds";
@@ -107,7 +107,7 @@ export default function App() {
     fetchAll(city);
   }, []);
 
- 
+
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchRef = useRef(null);
@@ -152,10 +152,10 @@ export default function App() {
 
   const handleSuggestionClick = (suggestion) => {
     const cityName = `${suggestion.name}, ${suggestion.country}`;
-    setCity(cityName); 
-    fetchAll(suggestion.name);  
-    
-    setInput(""); 
+    setCity(cityName);
+    fetchAll(suggestion.name);
+
+    setInput("");
     setSuggestions([]);
     setShowSuggestions(false);
   };
@@ -257,11 +257,11 @@ export default function App() {
           />
 
           <div className="actions">
-           
+
           </div>
         </header>
 
-    
+
         <div className="mainGrid">
           <Sidebar weather={current} />
 
